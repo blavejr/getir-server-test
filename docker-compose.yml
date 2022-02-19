@@ -1,0 +1,31 @@
+version: "3"
+services:
+    # uncomment if you want to use a local database
+    mongo:
+        image: mongo:3.4.13-jessie
+        ports:
+            - "27017:27017"
+    #     volumes:
+    #         - "db-data:/data/db"
+    #         - ".docker/mongo/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d:ro"
+    #         - ".docker/mongo/data/restore:/data/restore:ro"
+    #     networks:
+    #         - b4_network
+    ngin4:
+        build: .
+        ports:
+            - "3030:3030"
+        volumes:
+            - .:/backend
+            - /backend/node_modules
+        # networks:
+        #     - b4_network
+        # restart: always
+        depends_on:
+            - mongo
+
+# volumes:
+#     db-data:
+
+# networks:
+#     b4_network:
